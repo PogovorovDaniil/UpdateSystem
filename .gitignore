@@ -13,3 +13,6 @@
 
 /Client US/Client US/bin/Release/*.config
 /Client US/Client US/bin/Release/*.pdb
+
+/Client US/Client US/bin/Release/dir/*
+!/Client US/Client US/bin/Release/dir/

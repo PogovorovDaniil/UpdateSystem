@@ -2,7 +2,6 @@
 using System.IO;
 using System.Security.Cryptography;
 
-
 namespace Client_US
 {
     public struct FileAndHash
@@ -19,6 +18,13 @@ namespace Client_US
         public override string ToString()
         {
             return FileName + " " + FileHash;
+        }
+
+        public FileAndHash FromString(string FileAndHashText, char Splitter = '|')
+        {
+            string[] FileAndHashArray = FileAndHashText.Split(Splitter);
+            if (FileAndHashArray.Length > 1) return new FileAndHash(FileAndHashArray[0], FileAndHashArray[1]);
+            return new FileAndHash("", "");
         }
     }
     public static class HashList
@@ -45,24 +51,28 @@ namespace Client_US
             }
             return FileCount;
         }
-        public static FileAndHash[] GetFileList(string path)
+        private static FileAndHash[] GetFileListPri(string path, int pathLength)
         {
             FileAndHash[] FileList = new FileAndHash[GetFileCount(path)];
             int index = 0;
 
             foreach (string file in Directory.GetFiles(path))
             {
-                FileList[index++] = new FileAndHash(file, GetHashMd5(file));
+                FileList[index++] = new FileAndHash(file.Substring(pathLength, file.Length - pathLength), GetHashMd5(file));
             }
 
             foreach (string directory in Directory.GetDirectories(path))
             {
-                foreach (FileAndHash file in GetFileList(directory))
+                foreach (FileAndHash file in GetFileListPri(directory, pathLength))
                 {
                     FileList[index++] = file;
                 }
             }
             return FileList;
+        }
+        public static FileAndHash[] GetFileList(string path)
+        {
+            return GetFileListPri(path, path.Length);
         }
     }
 }

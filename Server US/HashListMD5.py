@@ -20,15 +20,18 @@ def setHashList(dirName):
 
 def GenList():
     dirName = 'dir'
-    HashList = ''
-    fileList = setHashList(dirName)
-    for file in fileList:
-        HashList += file[len(dirName) + 1::] + '|' + get_hash_md5(file) + '\n'
-    return HashList
+    try:
+        fileList = setHashList(dirName)
+        hashList = ''
+        for file in fileList:
+            hashList += file[len(dirName) + 1::] + '|' + get_hash_md5(file) + '\n'
+        f = open('list.txt','w')
+        f.write(hashList)
+        f.close()
+        return True
+    except:
+        return False
 
 if __name__ == "__main__":
-    hashList = GenList()
-    f = open('list.txt','w')
-    f.write(hashList)
-    f.close()
+    print('Ohh, da vi hacker')
     

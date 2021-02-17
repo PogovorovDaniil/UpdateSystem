@@ -1,0 +1,7 @@
+C:\Users\gigst\Documents\GitHub\UpdateSystem\Client US\Client US\bin\Release\Client US.exe.config
+C:\Users\gigst\Documents\GitHub\UpdateSystem\Client US\Client US\bin\Release\Client US.exe
+C:\Users\gigst\Documents\GitHub\UpdateSystem\Client US\Client US\bin\Release\Client US.pdb
+C:\Users\gigst\Documents\GitHub\UpdateSystem\Client US\Client US\obj\Release\Client US.csprojAssemblyReference.cache
+C:\Users\gigst\Documents\GitHub\UpdateSystem\Client US\Client US\obj\Release\Client US.csproj.CoreCompileInputs.cache
+C:\Users\gigst\Documents\GitHub\UpdateSystem\Client US\Client US\obj\Release\Client US.exe
+C:\Users\gigst\Documents\GitHub\UpdateSystem\Client US\Client US\obj\Release\Client US.pdb

@@ -1,12 +1,14 @@
 #Server ignores
 #Python3
 
-/Server US/__pycache__/
+/Server US/__pycache__/*
 /Server US/dir/*
+!/Server US/dir/
 
 #Client ignores
 #C sharp
-/Client US/Client US/bin/Debug/
+
+/Client US/Client US/bin/Debug/*
 
 /Client US/Client US/bin/Release/*.config
 /Client US/Client US/bin/Release/*.pdb

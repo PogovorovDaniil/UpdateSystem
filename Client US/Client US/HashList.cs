@@ -6,18 +6,18 @@ namespace Client_US
 {
     public struct FileAndHash
     {
-        public string FileName;
-        public string FileHash;
+        public string fileName;
+        public string fileHash;
 
-        public FileAndHash(string FileName, string FileHash)
+        public FileAndHash(string fileName, string fileHash)
         {
-            this.FileName = FileName;
-            this.FileHash = FileHash;
+            this.fileName = fileName;
+            this.fileHash = fileHash;
         }
 
         public override string ToString()
         {
-            return FileName + " " + FileHash;
+            return fileName + " " + fileHash;
         }
 
         public FileAndHash FromString(string FileAndHashText, char Splitter = '|')

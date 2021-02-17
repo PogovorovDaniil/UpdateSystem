@@ -1,9 +1,8 @@
 import hashlib
 import os
 
-def getHashMd5(filename):
+def getHashMd5(filename, m):
     with open(filename, 'rb') as f:
-        m = hashlib.md5()
         while True:
             data = f.read(8192)
             if not data:
@@ -19,12 +18,13 @@ def getFileList(dirName):
     return fileList
 
 def genList():
+    m = hashlib.md5()
     dirName = 'dir'
     try:
         fileList = getFileList(dirName)
         hashList = ''
         for file in fileList:
-            hashList += file[len(dirName) + 1::] + '|' + getHashMd5(file) + '\n'
+            hashList += file[len(dirName) + 1::] + '|' + getHashMd5(file, m) + '\n'
         f = open('list.txt','w')
         f.write(hashList)
         f.close()
@@ -33,5 +33,6 @@ def genList():
         return False
 
 if __name__ == "__main__":
+    genList()
     print('Ohh, da vi hacker')
     

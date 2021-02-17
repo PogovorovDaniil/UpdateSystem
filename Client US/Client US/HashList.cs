@@ -23,17 +23,12 @@ namespace Client_US
     }
     public static class HashList
     {
+        private static MD5 md5 = new MD5CryptoServiceProvider();
+
         public static string GetHashMd5(string path)
         {
-            using (FileStream fs = File.OpenRead(path))
-            {
-                MD5 md5 = new MD5CryptoServiceProvider();
-                byte[] fileData = new byte[fs.Length];
-                fs.Read(fileData, 0, (int)fs.Length);
-                byte[] checkSum = md5.ComputeHash(fileData);
-                string result = BitConverter.ToString(checkSum).Replace("-", string.Empty);
-                return result.ToLower();
-            }
+            byte[] checkSum = md5.ComputeHash(File.OpenRead(path));
+            return BitConverter.ToString(checkSum).Replace("-", "").ToLower();
         }
         public static int GetFileCount(string path)
         {
@@ -50,7 +45,7 @@ namespace Client_US
             }
             return FileCount;
         }
-        public static FileAndHash[] GetFileList(string path = "C:\\Users\\gigst\\Documents\\GitHub\\UpdateSystem\\Server US\\dir\\")
+        public static FileAndHash[] GetFileList(string path)
         {
             FileAndHash[] FileList = new FileAndHash[GetFileCount(path)];
             int index = 0;

@@ -10,7 +10,7 @@ namespace Client_US
     {
         static void Main()
         {
-            FileAndHash[] files = HashList.GetFileList();
+            FileAndHash[] files = HashList.GetFileList("C:\\Users\\gigst\\Documents\\GitHub\\UpdateSystem\\Server US\\dir\\");
             foreach(FileAndHash file in files) Console.WriteLine(file);
             while (true) ;
         }

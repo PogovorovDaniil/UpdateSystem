@@ -2,6 +2,7 @@
 #Python3
 
 /Server US/__pycache__/*
+/Server US/list.txt
 /Server US/dir/*
 !/Server US/dir/
 

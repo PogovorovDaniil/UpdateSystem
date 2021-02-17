@@ -24,7 +24,6 @@ namespace Client_US
         }
         static void Main()
         {
-            Console.WriteLine(ComputeMD5Checksum("gta_sa.exe"));
             while (true) ;
         }
     }

@@ -10,3 +10,10 @@ def get_hash_md5(filename):
             m.update(data)
         return m.hexdigest()
 
+def setHashList():
+    
+    return 1
+
+
+if __name__ == "__main__":
+    print(1)

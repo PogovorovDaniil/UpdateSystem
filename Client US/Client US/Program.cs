@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace Client_US
 {
@@ -10,7 +7,7 @@ namespace Client_US
     {
         static void Main()
         {
-            FileAndHash[] files = HashList.GetFileList("C:\\Users\\gigst\\Documents\\GitHub\\UpdateSystem\\Server US\\dir\\");
+            FileAndHash[] files = HashList.GetFileList(Directory.GetCurrentDirectory() + "\\dir\\");
             foreach(FileAndHash file in files) Console.WriteLine(file);
             while (true) ;
         }

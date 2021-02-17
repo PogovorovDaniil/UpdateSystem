@@ -1,7 +1,7 @@
 import hashlib
 import os
 
-def get_hash_md5(filename):
+def getHashMd5(filename):
     with open(filename, 'rb') as f:
         m = hashlib.md5()
         while True:
@@ -11,20 +11,20 @@ def get_hash_md5(filename):
             m.update(data)
         return m.hexdigest()
 
-def setHashList(dirName):
+def getFileList(dirName):
     fileList = []
     for root, _, files in os.walk(dirName):
         for file in files:
             fileList.append(root + '\\' + file)
     return fileList
 
-def GenList():
+def genList():
     dirName = 'dir'
     try:
-        fileList = setHashList(dirName)
+        fileList = getFileList(dirName)
         hashList = ''
         for file in fileList:
-            hashList += file[len(dirName) + 1::] + '|' + get_hash_md5(file) + '\n'
+            hashList += file[len(dirName) + 1::] + '|' + getHashMd5(file) + '\n'
         f = open('list.txt','w')
         f.write(hashList)
         f.close()

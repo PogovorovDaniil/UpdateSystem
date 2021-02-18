@@ -12,20 +12,20 @@ def getHashMd5(filename, m):
 
 def getFileList(dirName):
     fileList = []
-    for root, _, files in os.walk(dirName):
+    for root, _, files in os.walk(os.getcwd() + dirName):
         for file in files:
-            fileList.append(root + '\\' + file)
+            fileList.append(root + '/' + file)
     return fileList
 
 def genList():
     m = hashlib.md5()
-    dirName = 'dir'
+    dirName = '/dir'
     try:
         fileList = getFileList(dirName)
         hashList = ''
         for file in fileList:
-            hashList += file[len(dirName) + 1::] + '|' + getHashMd5(file, m) + '\n'
-        f = open('list.txt','w')
+            hashList += file[len(os.getcwd() + dirName) + 1::] + '|' + getHashMd5(file, m) + '\n'
+        f = open('list.txt','w+')
         f.write(hashList)
         f.close()
         return True

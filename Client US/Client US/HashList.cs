@@ -11,7 +11,7 @@ namespace Client_US
 
         public FileAndHash(string fileName, string fileHash)
         {
-            this.fileName = fileName;
+            this.fileName = fileName.Replace('\\', '/');
             this.fileHash = fileHash;
         }
 
@@ -20,7 +20,7 @@ namespace Client_US
             return fileName + " " + fileHash;
         }
 
-        public FileAndHash FromString(string FileAndHashText, char Splitter = '|')
+        public static FileAndHash FromString(string FileAndHashText, char Splitter = '|')
         {
             string[] FileAndHashArray = FileAndHashText.Split(Splitter);
             if (FileAndHashArray.Length > 1) return new FileAndHash(FileAndHashArray[0], FileAndHashArray[1]);
@@ -33,7 +33,9 @@ namespace Client_US
 
         public static string GetHashMd5(string path)
         {
-            byte[] checkSum = md5.ComputeHash(File.OpenRead(path));
+            FileStream fs = File.OpenRead(path);
+            byte[] checkSum = md5.ComputeHash(fs);
+            fs.Close();
             return BitConverter.ToString(checkSum).Replace("-", "").ToLower();
         }
         public static int GetFileCount(string path)

@@ -11,8 +11,11 @@ namespace Client_US
     {
         static Socket socket;
         static EndPoint endPoint;
-        static string IP = "127.0.0.1";
+        static string IP = "193.178.169.223";
         static int port = 9090;
+
+        static int progressDownload = 0;
+        static int sizeToDownload = 0;
 
         static FileAndHash[] GetFileListFromServer()
         {
@@ -75,7 +78,7 @@ namespace Client_US
 
         static void DownloadFile(string fileName)
         {
-            Console.WriteLine("Start");
+            Console.WriteLine("Start download - " + fileName);
             byte[] bfileName = Encoding.UTF8.GetBytes(fileName);
             socket.Send(new byte[] { 1, (byte)bfileName.Length });
             socket.Send(bfileName);
@@ -88,7 +91,6 @@ namespace Client_US
                 size *= 0x100;
                 size += sizeReceive[i];
             }
-            Console.WriteLine("Size: " + size);
 
             string fileDir = Directory.GetCurrentDirectory() + "/dir/" + fileName;
             Directory.CreateDirectory(fileDir);
@@ -96,8 +98,6 @@ namespace Client_US
 
             FileStream fs = File.OpenWrite(fileDir);
             fs.SetLength(0);
-
-            Console.WriteLine("Download");
 
             byte[] buffer = new byte[4096];
             int offset = 0;
@@ -107,10 +107,11 @@ namespace Client_US
                 bytesCount = socket.Receive(buffer);
                 fs.Write(buffer, 0, bytesCount);
                 offset += bytesCount;
-                Console.WriteLine("Downloaded: " + offset);
+                progressDownload += bytesCount;
+                Console.WriteLine("{0}/{1} - {2}", progressDownload, sizeToDownload, progressDownload * 100 / sizeToDownload + "%");
             }
             fs.Close();
-            Console.WriteLine("Download end\n");
+            Console.WriteLine("Stop download - " + fileName);
         }
 
         static void DeleteFile(string fileName)
@@ -136,6 +137,12 @@ namespace Client_US
                 FileManage[] fileManages = FileManager.Manage(serverFileList, clientFileList);
                 foreach (FileManage file in fileManages) Console.WriteLine(file);
                 Console.ReadKey(true);
+
+                sizeToDownload = 0;
+                foreach(FileManage fileManage in fileManages)
+                {
+                    if (fileManage.fileSize > 0) sizeToDownload += fileManage.fileSize;
+                }
 
                 foreach (FileManage file in fileManages)
                 {

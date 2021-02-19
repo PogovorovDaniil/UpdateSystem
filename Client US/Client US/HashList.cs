@@ -8,31 +8,33 @@ namespace Client_US
     {
         public string fileName;
         public string fileHash;
+        public int fileSize;
 
-        public FileAndHash(string fileName, string fileHash)
+        public FileAndHash(string fileName, string fileHash, int fileSize)
         {
             this.fileName = fileName.Replace('\\', '/');
             this.fileHash = fileHash;
+            this.fileSize = fileSize;
         }
 
         public override string ToString()
         {
-            return fileName + " " + fileHash;
+            return fileName + " " + fileHash + " " + fileSize;
         }
 
         public static FileAndHash FromString(string FileAndHashText, char Splitter = '|')
         {
             string[] FileAndHashArray = FileAndHashText.Split(Splitter);
-            if (FileAndHashArray.Length > 1) return new FileAndHash(FileAndHashArray[0], FileAndHashArray[1]);
-            return new FileAndHash("", "");
+            if (FileAndHashArray.Length == 3) return new FileAndHash(FileAndHashArray[0], FileAndHashArray[1], int.Parse(FileAndHashArray[2]));
+            return new FileAndHash("", "", -1);
         }
     }
     public static class HashList
     {
-        private static MD5 md5 = new MD5CryptoServiceProvider();
 
         public static string GetHashMd5(string path)
         {
+            MD5 md5 = new MD5CryptoServiceProvider();
             FileStream fs = File.OpenRead(path);
             byte[] checkSum = md5.ComputeHash(fs);
             fs.Close();
@@ -60,7 +62,7 @@ namespace Client_US
 
             foreach (string file in Directory.GetFiles(path))
             {
-                FileList[index++] = new FileAndHash(file.Substring(pathLength, file.Length - pathLength), GetHashMd5(file));
+                FileList[index++] = new FileAndHash(file.Substring(pathLength, file.Length - pathLength), GetHashMd5(file), (int)(new FileInfo(file)).Length);
             }
 
             foreach (string directory in Directory.GetDirectories(path))

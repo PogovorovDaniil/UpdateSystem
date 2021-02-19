@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Client_US
 {
@@ -8,11 +7,13 @@ namespace Client_US
     {
         public string fileName;
         public FileAction fileAction;
+        public int fileSize;
 
-        public FileManage(string fileName, FileAction fileAction)
+        public FileManage(string fileName, FileAction fileAction, int fileSize)
         {
             this.fileName = fileName;
             this.fileAction = fileAction;
+            this.fileSize = fileSize;
         }
 
         public override string ToString()
@@ -38,12 +39,12 @@ namespace Client_US
                     }
                     else if (fileS.fileName == fileC.fileName && fileS.fileHash != fileC.fileHash)
                     {
-                        files.Add(new FileManage(fileS.fileName, FileAction.Replace));
+                        files.Add(new FileManage(fileS.fileName, FileAction.Replace, fileS.fileSize));
                         Exist = true;
                         break;
                     }
                 }
-                if (!Exist) files.Add(new FileManage(fileS.fileName, FileAction.Create));
+                if (!Exist) files.Add(new FileManage(fileS.fileName, FileAction.Create, fileS.fileSize));
             }
 
             foreach (FileAndHash fileC in filesOnClient)
@@ -57,7 +58,7 @@ namespace Client_US
                         break;
                     }
                 }
-                if (!Exist) files.Add(new FileManage(fileC.fileName, FileAction.Delete));
+                if (!Exist) files.Add(new FileManage(fileC.fileName, FileAction.Delete, -1));
             }
             return files.ToArray();
         }

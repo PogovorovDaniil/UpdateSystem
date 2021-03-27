@@ -26,6 +26,7 @@ def genList():
         for file in fileList:
             hashList += file[len(os.getcwd() + dirName) + 1::] + '|' + getHashMd5(file) + '|' + str(os.path.getsize(file)) + '\n'
         f = open('list.txt','w+')
+        print(hashList)
         f.write(hashList)
         f.close()
         return True

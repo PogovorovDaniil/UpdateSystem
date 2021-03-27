@@ -1,0 +1,6 @@
+1.1
+Client US.exe
+Client US.exe.config
+Client US.pdb
+0d3f687b97a890c14a62fd56f3648f15d8e13024_full.jpg
+launcherData/

@@ -6,8 +6,9 @@ namespace Client_US
     {
         static void Main()
         {
-            UpdateServer updateServer = new UpdateServer("193.178.169.223", 9090);
+            UpdateServer updateServer = new UpdateServer("194.61.3.168", 9090);
             updateServer.IsProgressLoadUpdate += UpdateServer_IsProgressLoadUpdate;
+
             int sizeFiles;
             if (updateServer.TryConnect(out sizeFiles))
             {
